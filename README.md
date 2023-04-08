@@ -1,27 +1,39 @@
 # LeetCode-SQL70-Notes
-## Preparatory knowledge
 
-### GROUP BY
+
+## Table of Contents
+* [GROUP BY](#groupby)
+* [最大值问题的三种思路](#max)
+* [最小值问题的三种思路](#min)
+* [SUM IF & COUNT IF](#sumif-countif)
+* [DATEDIFF( )](#datediff)
+* [IFNULL( )](#ifnull)
+* [ROUND( )](#round)
+* [DISTINCT( )](#distinct)
+* [window_fuction](#window_fuction)
+
+
+## GROUP BY<a name="groupby"></a>
 - GROUP BY按column_name或column_name1,...,column_nameN所组成的唯一值对数据进行分组，压缩成一行数据
 - GROUP BY搭配SELECT Aggregate_fuction(column_name)，根据Aggregate_fuction()输出一条记录
 - GROUP BY不搭配SELECT Aggregate_fuction(column_name)，默认取分组结果的第一条记录
 - GROUP BY筛选的不是完整的一行记录，WHERE筛选的是完整的一行记录
 
-### 最大值问题的三种思路
+## 最大值问题的三种思路<a name="max"></a>
 ```
 - 内层：窗口排名函数 OVER(ORDER BY 字段 DESC) AS ranking，外层：WHERE ranking=1
 - HAVING Aggregate_function(字段)>=ALL(SELECT Aggregate_function(字段))
 - ORDER BY 字段 DESC，LIMIT 1
 ```
 
-### 最小值问题的三种思路
+## 最小值问题的三种思路<a name="min"></a>
 ```
 - 内层：窗口排名函数 OVER(ORDER BY 字段 ASC) AS ranking，外层：WHERE ranking=1
 - HAVING Aggregate_function()<=ALL(SELECT Aggregate_function())
 - ORDER BY 字段 ASC，LIMIT 1
 ```
 
-### SUM IF & COUNT IF
+## SUM IF & COUNT IF<a name="sumif-countif"></a>
 ```
 对条件进行计数：SUM(条件)等价于SUM(if(条件,1,0))
 对条件进行计数：COUNT(IF(条件,1,null))
@@ -29,21 +41,21 @@
 注：COUNT(条件)等价于COUNT(条件,true,null)，条件满足返回true，否则返回null
 ```
 
-### DATEDIFF()
+## DATEDIFF()<a name="datediff"></a>
 ```
 DATEDIFF(x1,x2) -- 返回x1-x2的时间差值，其中x1,x2为column_name或时间字符串
 ```
-### IFNULL()
+## IFNULL()<a name="ifnull"></a>
 ```
 IFNULL(x,value) -- 如果x为NULL，返回value
 
 注：指标计算中，需要外部加IFNULL()。例如IFNULL(COUNT()/COUNT(),0)
 ```
-### ROUND()
+## ROUND()<a name="round"></a>
 ```
 ROUND(x,d)：四舍五入保留x的d位小数
 ```
-### DISTINCT
+## DISTINCT<a name="distinct"></a>
 ```
 使用范围：SELECT clause
 
@@ -57,7 +69,7 @@ ROUND(x,d)：四舍五入保留x的d位小数
 597. 好友申请 I：总体通过率
 
 
-### Window_function
+## Window_function<a name="window_fuction"></a>
 
 **1.窗口函数的基本语法框架**
 ```
